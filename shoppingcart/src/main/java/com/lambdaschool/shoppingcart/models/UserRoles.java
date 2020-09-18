@@ -1,5 +1,4 @@
 package com.lambdaschool.shoppingcart.models;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,8 @@ import java.util.Objects;
  * When you implement Serializable you must implement equals and hash code
  */
 @Entity
-@Table(name = "userroles")
+@Table(name = "userroles",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
 public class UserRoles
         extends Auditable
         implements Serializable
@@ -106,8 +106,7 @@ public class UserRoles
         {
             return false;
         }
-        com.lambdaschool.shoppingcart.models.UserRoles userRoles = (
-                com.lambdaschool.shoppingcart.models.UserRoles) o;
+        com.lambdaschool.shoppingcart.models.UserRoles userRoles = (com.lambdaschool.shoppingcart.models.UserRoles) o;
         return getUser().equals(userRoles.getUser()) &&
                 getRole().equals(userRoles.getRole());
     }
